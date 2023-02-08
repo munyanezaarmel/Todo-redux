@@ -1,26 +1,26 @@
-// AddTodo Component
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
 
-const AddTodo = ({ addTodo }) => {
-  const [value, setValue] = useState("");
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    addTodo(value);
-    setValue("");
-  };
+const AddTodo = ({ dispatch }) => {
+  let input;
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Add Todo"
-        value={value}
-        onChange={e => setValue(e.target.value)}
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <div className="add-todo">
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          if (!input.value.trim()) {
+            return;
+          }
+          dispatch({ type: "ADD_TODO", text: input.value });
+          input.value = "";
+        }}
+      >
+        <input ref={node => (input = node)} />
+        <button type="submit">Add Todo</button>
+      </form>
+    </div>
   );
 };
 
-export default AddTodo;
+export default connect()(AddTodo);
