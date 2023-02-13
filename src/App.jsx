@@ -1,21 +1,17 @@
-import React from "react";
-import { connect } from "react-redux";
-import AddTodo from "./components/AddTodo";
-import TodoList from "./components/TodoList";
-import CompletedTodoList from "./components/CompletedTodoList";
+// App.js
+import React from 'react';
+import AddTodo from './components/AddTodo';
+import UncompletedTodos from './components/UncompletedTodos';
+import CompletedTodos from './components/CompletedTodos';
 
-const App = ({ todos }) => {
-  return (
-    <div className="app">
+const App = () => (
+  <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div style={{ width: '50%' }}>
       <AddTodo />
-      <TodoList todos={todos.filter(todo => !todo.completed)} />
-      <CompletedTodoList todos={todos.filter(todo => todo.completed)} />
+      <UncompletedTodos />
+      <CompletedTodos />
     </div>
-  );
-};
+  </div>
+);
 
-const mapStateToProps = state => ({
-  todos: state.todos
-});
-
-export default connect(mapStateToProps)(App);
+export default App

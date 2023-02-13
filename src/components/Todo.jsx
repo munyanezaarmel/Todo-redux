@@ -1,13 +1,33 @@
-import React from "react";
+// Todo.js
+import React from 'react';
+import { connect } from 'react-redux';
 
-const Todo = ({ todo, toggleTodo, deleteTodo }) => {
+const Todo = ({ todo, dispatch }) => {
+  const handleCheckbox = () => {
+    dispatch({
+      type: 'TOGGLE_TODO',
+      payload: todo.id,
+    });
+  };
+
+  const handleDelete = () => {
+    dispatch({
+      type: 'DELETE_TODO',
+      payload: todo.id,
+    });
+  };
+
   return (
-    <div className="todo">
-      <input type="checkbox" onClick={toggleTodo} />
-      <p className={todo.completed ? "completed" : ""}>{todo.text}</p>
-      <button onClick={deleteTodo}>Delete</button>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <input
+        type="checkbox"
+        checked={todo.completed}
+        onChange={handleCheckbox}
+      />
+      <p style={{ margin: '0 10px' }}>{todo.todo}</p>
+      <button onClick={handleDelete}>Delete</button>
     </div>
   );
 };
 
-export default Todo;
+export default connect()(Todo);

@@ -1,25 +1,33 @@
-import React from "react";
-import { connect } from "react-redux";
+// AddTodo.js
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 const AddTodo = ({ dispatch }) => {
-  let input;
+  const [todo, setTodo] = useState('');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch({
+      type: 'ADD_TODO',
+      payload: {
+        id: Date.now(),
+        todo,
+        completed: false,
+      },
+    });
+    setTodo('');
+  };
 
   return (
-    <div className="add-todo">
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          if (!input.value.trim()) {
-            return;
-          }
-          dispatch({ type: "ADD_TODO", text: input.value });
-          input.value = "";
-        }}
-      >
-        <input ref={node => (input = node)} />
-        <button type="submit">Add Todo</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={todo}
+        onChange={e => setTodo(e.target.value)}
+        placeholder="Add Todo"
+      />
+      <button type="submit">Submit</button>
+    </form>
   );
 };
 
