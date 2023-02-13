@@ -1,4 +1,4 @@
-
+// App.js
 import React from 'react';
 import AddTodo from './components/AddTodo';
 import UncompletedTodos from './components/UncompletedTodos';
@@ -14,4 +14,4 @@ const App = () => (
   </div>
 );
 
-export default App
+export default App;
